@@ -1,0 +1,86 @@
+version: '1.0'
+
+services:
+
+  client:
+    image: client
+    stdin_open: true
+    ports:
+      - "3000:80"
+    networks:
+      - app
+    build:
+      context: ./client
+      dockerfile: ./client/Dockerfile
+
+  posts:
+    image: 'posts_service:latest'
+    networks:
+      - app
+    build:
+      context: ./posts
+      dockerfile: ./posts/Dockerfile
+    ports:
+      - "4000:80"
+    restart: unless-stopped
+    container_name: posts
+    depends_on:
+      - event-bus
+
+  comments:
+    image: 'comments_service:latest'
+    networks:
+      - app
+    build:
+      context: ./comments
+      dockerfile: ./comments/Dockerfile
+    ports:
+      - "4001:80"
+    restart: unless-stopped
+    container_name: comments
+    depends_on:
+      - event-bus
+
+  query:
+    image: 'query_service:latest'
+    networks:
+      - app
+    build:
+      context: ./query
+      dockerfile: ./query/Dockerfile
+    ports:
+      - "4002:80"
+    restart: unless-stopped
+    container_name: query
+    depends_on:
+      - event-bus
+
+  moderation:
+    image: 'moderation_service:latest'
+    networks:
+      - app
+    build:
+      context: ./moderation
+      dockerfile: ./moderation/Dockerfile
+    ports:
+      - "4002:80"
+    restart: unless-stopped
+    container_name: query
+    depends_on:
+      - event-bus
+
+  event-bus:
+    image: 'event_service:latest'
+    networks:
+      - app
+    build:
+      context: ./event-bus
+      dockerfile: ./event-bus/Dockerfile
+    ports:
+      - "4005:80"
+    restart: unless-stopped
+    container_name: event-bus
+
+networks:
+  app:
+    driver: bridge
