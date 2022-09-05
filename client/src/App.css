@@ -1,0 +1,41 @@
+.posts-main {
+    padding: 100px;
+}
+
+.posts-title,
+.comments-submit {
+    display: flex;
+    justify-content: center;
+    font-weight: 200;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.posts-form {
+    padding-left: 500px;
+}
+
+.posts-title-submit {
+    margin-left: 100px;
+}
+
+.posts-list {
+    display: flexbox;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-basis: 50%;
+}
+
+.comments-submit {
+    margin-top: 10px;
+    margin-left: 120px;
+    padding: 5px;
+}
+
+.comments-title {
+    display: flex;
+    justify-content: center;
+}
+
+.comment-form-input {
+    margin-left: 10px;
+}
