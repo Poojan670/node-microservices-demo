@@ -3,7 +3,7 @@ version: '1.0'
 services:
 
   client:
-    image: client
+    image: 'node-services/client'
     stdin_open: true
     ports:
       - "3000:80"
@@ -14,11 +14,11 @@ services:
       dockerfile: ./client/Dockerfile
 
   posts:
-    image: 'posts_service:latest'
+    image: 'node-services/posts'
     networks:
       - app
     build:
-      context: ./posts
+      context: server/posts
       dockerfile: ./posts/Dockerfile
     ports:
       - "4000:80"
@@ -28,11 +28,11 @@ services:
       - event-bus
 
   comments:
-    image: 'comments_service:latest'
+    image: 'node-services/comments'
     networks:
       - app
     build:
-      context: ./comments
+      context: server/comments
       dockerfile: ./comments/Dockerfile
     ports:
       - "4001:80"
@@ -42,11 +42,11 @@ services:
       - event-bus
 
   query:
-    image: 'query_service:latest'
+    image: 'node-services/query'
     networks:
       - app
     build:
-      context: ./query
+      context: server/query
       dockerfile: ./query/Dockerfile
     ports:
       - "4002:80"
@@ -56,11 +56,11 @@ services:
       - event-bus
 
   moderation:
-    image: 'moderation_service:latest'
+    image: 'node-services/moderation'
     networks:
       - app
     build:
-      context: ./moderation
+      context: server/moderation
       dockerfile: ./moderation/Dockerfile
     ports:
       - "4002:80"
@@ -70,11 +70,11 @@ services:
       - event-bus
 
   event-bus:
-    image: 'event_service:latest'
+    image: 'node-services/eventbus'
     networks:
       - app
     build:
-      context: ./event-bus
+      context: server/event-bus
       dockerfile: ./event-bus/Dockerfile
     ports:
       - "4005:80"
