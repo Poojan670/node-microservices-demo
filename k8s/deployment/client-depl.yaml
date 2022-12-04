@@ -15,7 +15,7 @@ spec:
       containers:
         - name: client
           image: node-services/client
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: "128Mi"

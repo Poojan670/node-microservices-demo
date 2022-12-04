@@ -3,12 +3,10 @@ FROM node:alpine
 WORKDIR /src/app
 
 COPY ./package.json ./
-COPY ./package-lock.json ./
+COPY ./yarn.lock ./
 
-RUN npm i
+RUN yarn
 
-COPY . .
+COPY ./ ./
 
-EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
